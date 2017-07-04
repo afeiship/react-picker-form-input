@@ -9,11 +9,11 @@ import ReactPickerFormInput from './main';
 class App extends React.Component{
   state = {
     items:[
-      [1990,1991,1992,1993,1994,1995,1996],
+      [1996],
       [1,2,3,4,5,6,7,8,9,10,11,12],
       [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
     ],
-    value: [ 1990,3,12 ]
+    value: [ 1996,3,12 ]
   };
 
   constructor(props){
@@ -38,7 +38,7 @@ class App extends React.Component{
     return (
       <div className="hello-react-picker-form-input">
         <ReactPickerFormInput
-          placeholder="你想定制成啥样呢？"
+          placeholder="Ready to customize your picker?"
           value={this.state.value}
           filter={this._filter}
           items={this.state.items}

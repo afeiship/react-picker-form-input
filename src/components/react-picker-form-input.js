@@ -8,7 +8,6 @@ import noop from 'noop';
 import objectAssign from 'object-assign';
 import ReactVirtualInput from 'react-virtual-input';
 import ReactPickerCtrl from 'react-picker-ctrl';
-const emptyARR = [];
 
 export default class extends PureComponent{
   /*===properties start===*/
@@ -61,20 +60,16 @@ export default class extends PureComponent{
       placeholder,
       items: this.state.items,
       value: this.state.value,
-      onChange:this._onChange });
+      onChange:this._onChange
+    });
   };
 
   _onChange = inEvent => {
     const {value} = inEvent.target;
     const {onChange} = this.props;
     this.setState({value: value.slice(0)},()=>{
-      this.forceUpdate();
       onChange(inEvent);
     });
-  };
-
-  _onClear = inEvent => {
-    this.setState({value: emptyARR})
   };
 
   render(){
@@ -83,7 +78,6 @@ export default class extends PureComponent{
       <section {...props} className={classNames('react-picker-form-input',className)}>
         <ReactVirtualInput
         onFocus={this._onFocus}
-        onClear={this._onClear}
         placeholder={placeholder}
         clearable={false}
         blinkable={false}

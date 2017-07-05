@@ -14,6 +14,7 @@ export default class extends PureComponent{
   /*===properties start===*/
   static propTypes = {
     className: PropTypes.string,
+    placeholder: PropTypes.string,
     items: PropTypes.array,
     value: PropTypes.array,
     onChange: PropTypes.func,
@@ -63,13 +64,15 @@ export default class extends PureComponent{
   };
 
   render(){
-    const {className,items,value,filter,...props} = this.props;
+    const {className,items,value,placeholder,filter,...props} = this.props;
     return (
       <section {...props} className={classNames('react-picker-form-input',className)}>
         <ReactVirtualInput
         onFocus={this._onFocus}
         onClear={this._onClear}
-        placeholder="test.."
+        placeholder={placeholder}
+        clearable={false}
+        blinkable={false}
         value={ filter(this.state.value)} />
       </section>
     );

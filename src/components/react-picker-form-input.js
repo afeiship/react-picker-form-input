@@ -39,24 +39,24 @@ export default class extends PureComponent{
   }
 
   componentWillMount() {
-    ReactPickerCtrl.createInstance();
+    this._instance = ReactPickerCtrl.newInstance();
   }
 
   componentWillReceiveProps(nextProps) {
     const { value,items } = nextProps;
     if( value !== this.state.value ){
-      ReactPickerCtrl.update({ value });
+      this._instance.component.update({ value });
     }
 
     if(items !== this.state.items ){
-      ReactPickerCtrl.update({ items });
+      this._instance.component.update({ items });
     }
   }
 
 
   _onFocus = inEvent => {
     const { items, value ,onChange,placeholder} = this.props;
-    ReactPickerCtrl.show({
+    this._instance.component.show({
       placeholder,
       items: this.state.items,
       value: this.state.value,

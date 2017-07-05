@@ -7,6 +7,7 @@
 
   static propTypes = {
     className: PropTypes.string,
+    placeholder: PropTypes.string,
     items: PropTypes.array,
     value: PropTypes.array,
     onChange: PropTypes.func,
@@ -33,12 +34,20 @@
 class App extends React.Component{
   state = {
     items:[
-      [1996],
+      [2017],
       [1,2,3,4,5,6,7,8,9,10,11,12],
-      [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+      NxRange.integer(1,32),
     ],
-    value: [ 1996,3,12 ]
+    value: [ 2017,7,1 ]
   };
+
+
+  static getDays(inYear, inMonth) {
+    const monthStart = new Date(inYear, inMonth - 1, 1);
+    const monthEnd = new Date(inYear, inMonth, 1);
+    return (monthEnd - monthStart) / (1000 * 60 * 60 * 24)
+  }
+
 
   constructor(props){
     super(props);
@@ -48,7 +57,12 @@ class App extends React.Component{
   }
 
   _change = e =>{
-    console.log(e);
+    const {value} = e.target;
+    const days = App.getDays(value[0],value[1]);
+    const {items} = this.state;
+    items[2] = NxRange.integer(1, days + 1);
+    console.log(items[2].join());
+    this.setState({items:items.slice(0)});
   };
 
   _filter = e =>{

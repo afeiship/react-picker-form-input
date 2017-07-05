@@ -34,7 +34,8 @@ export default class extends PureComponent{
   constructor(props) {
     super(props);
     this.state = {
-      value: props.value
+      value: props.value,
+      items: props.items
     };
   }
 
@@ -42,11 +43,23 @@ export default class extends PureComponent{
     ReactPickerCtrl.createInstance();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { value,items } = nextProps;
+    if( value !== this.state.value ){
+      ReactPickerCtrl.update({ value });
+    }
+
+    if(items !== this.state.items ){
+      ReactPickerCtrl.update({ items });
+    }
+  }
+
+
   _onFocus = inEvent => {
     const { items, value ,onChange,placeholder} = this.props;
     ReactPickerCtrl.show({
-      items,
       placeholder,
+      items: this.state.items,
       value: this.state.value,
       onChange:this._onChange });
   };
@@ -55,6 +68,7 @@ export default class extends PureComponent{
     const {value} = inEvent.target;
     const {onChange} = this.props;
     this.setState({value: value.slice(0)},()=>{
+      this.forceUpdate();
       onChange(inEvent);
     });
   };

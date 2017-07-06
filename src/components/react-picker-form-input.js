@@ -43,9 +43,9 @@ export default class extends PureComponent{
   componentWillMount() {
     const {singleton} = this.props;
     if(singleton){
-      this._instance = ReactPickerCtrl.newInstance();
-    }else{
       this._instance = ReactPickerCtrl.createInstance();
+    }else{
+      this._instance = ReactPickerCtrl.newInstance();
     }
   }
 

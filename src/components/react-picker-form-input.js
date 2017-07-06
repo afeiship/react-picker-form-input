@@ -80,7 +80,7 @@ export default class extends PureComponent{
   };
 
   render(){
-    const {className,items,value,placeholder,filter,...props} = this.props;
+    const {className,singleton,items,value,placeholder,filter,...props} = this.props;
     return (
       <section {...props} className={classNames('react-picker-form-input',className)}>
         <ReactVirtualInput

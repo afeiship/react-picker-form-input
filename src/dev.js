@@ -14,7 +14,13 @@ class App extends React.Component{
       [1,2,3,4,5,6,7,8,9,10,11,12],
       NxRange.integer(1,32),
     ],
-    value: [ 2017,7,1 ]
+    value: [ 2017,7,1 ],
+    items2:[
+      [2017],
+      [1,2,3,4,5,6,7,8,9,10,11,12],
+      NxRange.integer(1,32),
+    ],
+    value2: [ 2017,6,2 ]
   };
 
 
@@ -32,13 +38,23 @@ class App extends React.Component{
     window.rc = this.refs.rc;
   }
 
-  _change = e =>{
+  _change1 = e =>{
     const {value} = e.target;
     const days = App.getDays(value[0],value[1]);
     const {items} = this.state;
     items[2] = NxRange.integer(1, days + 1);
     console.log(items[2].join());
     this.setState({items:items.slice(0)});
+  };
+
+
+  _change1 = e =>{
+    const {value} = e.target;
+    const days = App.getDays(value[0],value[1]);
+    const {items2} = this.state;
+    items2[2] = NxRange.integer(1, days + 1);
+    console.log(items2[2].join());
+    this.setState({items:items2.slice(0)});
   };
 
   _filter = e =>{
@@ -56,7 +72,15 @@ class App extends React.Component{
           value={this.state.value}
           filter={this._filter}
           items={this.state.items}
-          onChange={this._change} ref='rc' />
+          onChange={this._change1} ref='rc' />
+
+
+        <ReactPickerFormInput
+          placeholder="Ready to customiz2cker?"
+          value={this.state.value2}
+          filter={this._filter}
+          items={this.state.items2}
+          onChange={this._change2} ref='rc2' />
     </div>
     );
   }

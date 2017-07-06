@@ -12,6 +12,7 @@ import ReactPickerCtrl from 'react-picker-ctrl';
 export default class extends PureComponent{
   /*===properties start===*/
   static propTypes = {
+    singleton: PropTypes.bool,
     className: PropTypes.string,
     placeholder: PropTypes.string,
     items: PropTypes.array,
@@ -21,6 +22,7 @@ export default class extends PureComponent{
   };
 
   static defaultProps = {
+    singleton: false,
     items: [],
     value: [],
     onChange: noop,
@@ -39,7 +41,12 @@ export default class extends PureComponent{
   }
 
   componentWillMount() {
-    this._instance = ReactPickerCtrl.newInstance();
+    const {singleton} = this.props;
+    if(singleton){
+      this._instance = ReactPickerCtrl.newInstance();
+    }else{
+      this._instance = ReactPickerCtrl.createInstance();
+    }
   }
 
   componentWillReceiveProps(nextProps) {

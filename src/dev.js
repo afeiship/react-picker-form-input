@@ -51,7 +51,6 @@ class App extends React.Component{
 
 
   _filter = e =>{
-    console.log('filter ..');
     if(e.length){
       return e.join('-');
     }

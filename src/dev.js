@@ -45,19 +45,13 @@ class App extends React.Component{
     items[2] = NxRange.integer(1, days + 1);
     console.log(items[2].join());
     this.setState({items:items.slice(0)});
+
+    console.log('changed.');
   };
 
-
-  _change1 = e =>{
-    const {value} = e.target;
-    const days = App.getDays(value[0],value[1]);
-    const {items2} = this.state;
-    items2[2] = NxRange.integer(1, days + 1);
-    console.log(items2[2].join());
-    this.setState({items:items2.slice(0)});
-  };
 
   _filter = e =>{
+    console.log('filter ..');
     if(e.length){
       return e.join('-');
     }
@@ -68,19 +62,12 @@ class App extends React.Component{
     return (
       <div className="hello-react-picker-form-input">
         <ReactPickerFormInput
+          singleton
           placeholder="Ready to customize your picker?"
           value={this.state.value}
           filter={this._filter}
           items={this.state.items}
           onChange={this._change1} ref='rc' />
-
-
-        <ReactPickerFormInput
-          placeholder="Ready to customiz2cker?"
-          value={this.state.value2}
-          filter={this._filter}
-          items={this.state.items2}
-          onChange={this._change2} ref='rc2' />
     </div>
     );
   }

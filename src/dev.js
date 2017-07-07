@@ -47,15 +47,28 @@ class App extends React.Component{
       console.log(items[2].join());
       this.setState({items:items.slice(0)});
       console.log('changed.');
+    }else{
+      if(value.length === 0){
+        this.setState({value:[2017,7,12]});
+      }
     }
   };
 
 
   _filter = e =>{
-    if(e.length){
+    console.log(e);
+    if(e && e.length){
       return e.join('-');
     }
     return '';
+  };
+
+  _shown = e =>{
+    console.log(e);
+    const {value} = e.target;
+    if(value.length === 0){
+      this.setState({value:[2017,7,12]});
+    }
   };
 
   render(){
@@ -67,6 +80,7 @@ class App extends React.Component{
           value={this.state.value}
           filter={this._filter}
           items={this.state.items}
+          onShown={this._shown}
           onChange={this._change1} ref='rc' />
     </div>
     );

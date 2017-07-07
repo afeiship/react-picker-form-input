@@ -18,6 +18,8 @@ export default class extends PureComponent{
     items: PropTypes.array,
     value: PropTypes.array,
     onChange: PropTypes.func,
+    onShown: PropTypes.func,
+    onHidden: PropTypes.func,
     filter: PropTypes.func,
   };
 
@@ -25,6 +27,8 @@ export default class extends PureComponent{
     singleton: false,
     items: [],
     value: [],
+    onShown: noop,
+    onHidden: noop,
     onChange: noop,
     filter: (inValue) => {
       return inValue;
@@ -62,33 +66,43 @@ export default class extends PureComponent{
 
 
   _onFocus = inEvent => {
-    const { items, value ,onChange,placeholder} = this.props;
+    const { items, value ,onChange, placeholder, onShown} = this.props;
     this._instance.component.show({
       placeholder,
       items: this.state.items,
       value: this.state.value,
-      onChange:this._onChange
+      onChange:this._onChange,
+      onDropClick: this._onDropClick
+    }).then(()=>{
+      onShown({ target: { value: this.state.value} });
     });
   };
 
   _onChange = inEvent => {
     const {value} = inEvent.target;
     const {onChange} = this.props;
-    this.setState({value: value.slice(0)},()=>{
+    this.setState({ value: value.slice(0) },()=>{
       onChange(inEvent);
     });
   };
 
+  _onDropClick = inEvent => {
+    const {onHidden} = this.props;
+    return this._instance.component.hide(()=>{
+      onHidden({ target: { value: this.state.value} });
+    });
+  };
+
   render(){
-    const {className,singleton,items,value,placeholder,filter,...props} = this.props;
+    const { className,singleton,items,value,onShown,onHidden,placeholder,filter,...props } = this.props;
     return (
       <section {...props} className={classNames('react-picker-form-input',className)}>
         <ReactVirtualInput
-        onFocus={this._onFocus}
-        placeholder={placeholder}
-        clearable={false}
-        blinkable={false}
-        value={ filter(this.state.value)} />
+          onFocus={this._onFocus}
+          placeholder={placeholder}
+          clearable={false}
+          blinkable={false}
+          value={ filter(this.state.value)} />
       </section>
     );
   }

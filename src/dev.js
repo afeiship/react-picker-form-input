@@ -63,15 +63,20 @@ class App extends React.Component{
     return '';
   };
 
-  _shown = e =>{
-    console.log(e);
+  _onShown = e =>{
+    console.log('onshown.');
     const {value} = e.target;
     if(value.length === 0){
       this.setState({value:[2017,7,12]});
     }
   };
 
+  _onHidden = e =>{
+    console.log('on hidden..');
+  };
+
   render(){
+    console.log('render...');
     return (
       <div className="hello-react-picker-form-input">
         <ReactPickerFormInput
@@ -80,7 +85,8 @@ class App extends React.Component{
           value={this.state.value}
           filter={this._filter}
           items={this.state.items}
-          onShown={this._shown}
+          onShown={this._onShown}
+          onHidden={this._onHidden}
           onChange={this._change1} ref='rc' />
     </div>
     );

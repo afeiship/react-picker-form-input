@@ -40,7 +40,10 @@ export default class extends PureComponent{
     super(props);
     this.state = {
       value: props.value,
-      items: props.items
+      items: props.items,
+      onChange: props.onChange,
+      onShown: props.onShown,
+      onHidden: props.onHidden,
     };
   }
 
@@ -64,18 +67,27 @@ export default class extends PureComponent{
     }
   }
 
-
   _onFocus = inEvent => {
-    const { items, value ,onChange, placeholder, onShown} = this.props;
+    const { items, value ,onChange, placeholder, onHidden,onShown} = this.props;
     this._instance.component.show({
       placeholder,
       items: this.state.items,
       value: this.state.value,
       onChange:this._onChange,
+      onShown: this._onShown,
+      onHidden: this._onHidden,
       onDropClick: this._onDropClick
-    }).then(()=>{
-      onShown({ target: { value: this.state.value} });
     });
+  };
+
+  _onShown = inEvent => {
+    const { onShown, value} = this.state;
+    onShown({ target: { value } });
+  };
+
+  _onHidden = inEvent => {
+    const { onHidden, value} = this.state;
+    onHidden({ target: { value } });
   };
 
   _onChange = inEvent => {
@@ -87,10 +99,7 @@ export default class extends PureComponent{
   };
 
   _onDropClick = inEvent => {
-    const {onHidden} = this.props;
-    return this._instance.component.hide(()=>{
-      onHidden({ target: { value: this.state.value} });
-    });
+    return this._instance.component.hide();
   };
 
   render(){

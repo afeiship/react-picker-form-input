@@ -14,7 +14,7 @@ class App extends React.Component{
       [1,2,3,4,5,6,7,8,9,10,11,12],
       NxRange.integer(1,32),
     ],
-    value: [ 2017,7,1 ],
+    value: [],
     items2:[
       [2017],
       [1,2,3,4,5,6,7,8,9,10,11,12],
@@ -40,13 +40,14 @@ class App extends React.Component{
 
   _change1 = e =>{
     const {value} = e.target;
-    const days = App.getDays(value[0],value[1]);
-    const {items} = this.state;
-    items[2] = NxRange.integer(1, days + 1);
-    console.log(items[2].join());
-    this.setState({items:items.slice(0)});
-
-    console.log('changed.');
+    if(value && value.length === 3){
+      const days = App.getDays(value[0],value[1]);
+      const {items} = this.state;
+      items[2] = NxRange.integer(1, days + 1);
+      console.log(items[2].join());
+      this.setState({items:items.slice(0)});
+      console.log('changed.');
+    }
   };
 
 

@@ -6,7 +6,11 @@ import NxRange from 'next-range';
 
 // install: npm install afeiship/react-picker-form-input --save
 // import : import ReactPickerFormInput from 'react-picker-form-input'
-
+const _items = [
+  [2017],
+  [1,2,3,4,5,6,7,8,9,10,11,12],
+  NxRange.integer(1,32),
+];
 class App extends React.Component{
   state = {
     items:[
@@ -14,13 +18,13 @@ class App extends React.Component{
       [1,2,3,4,5,6,7,8,9,10,11,12],
       NxRange.integer(1,32),
     ],
-    value: [],
-    items2:[
-      [2017],
-      [1,2,3,4,5,6,7,8,9,10,11,12],
-      NxRange.integer(1,32),
-    ],
-    value2: [ 2017,6,2 ]
+    value: [2017,7,12],
+    // items2:[
+    //   [2017],
+    //   [1,2,3,4,5,6,7,8,9,10,11,12],
+    //   NxRange.integer(1,32),
+    // ],
+    // value2: [ 2017,6,2 ]
   };
 
 
@@ -49,7 +53,7 @@ class App extends React.Component{
       console.log('changed.');
     }else{
       if(value.length === 0){
-        this.setState({value:[2017,7,12]});
+        // this.setState({value:[2017,7,12]});
       }
     }
   };
@@ -64,15 +68,16 @@ class App extends React.Component{
   };
 
   _onShown = e =>{
-    console.log('onshown.');
     const {value} = e.target;
+    console.log('onshown.', value);
     if(value.length === 0){
-      this.setState({value:[2017,7,12]});
+      // this.setState({value:[2017,7,12]});
     }
   };
 
-  _onHidden = e =>{
-    console.log('on hidden..');
+  _onHidden = e => {
+    const {value} = e.target;
+    console.log('on hidden..',value);
   };
 
   render(){
